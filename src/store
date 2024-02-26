@@ -1,0 +1,154 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  body {
+    height: 100%;
+}
+body {
+    background: #222;
+    font-family: monospace;
+    width: 50%;
+}
+
+.b-chat {
+    width: 90%;
+    margin: 0 5%;
+    padding: 1em 0;
+    height: 100%;
+    
+    &__container {
+        max-width: 500px;
+        margin: auto;
+        height: 100%;
+    }
+}
+
+#chat, .c-chat {
+    height: 100%;
+}
+
+
+.c-chat {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    font-size: 1em;
+
+}
+
+.c-chat__list {
+    margin: 0;
+        padding: 0;
+        overflow-y: scroll;
+        overflow-x: visible;
+        height: 90%;
+}
+
+ &::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        .c-chat__item {
+            text-align: left;
+    
+            &--human {
+                text-align: right;
+
+                .c-chat__message {
+            
+                    color: #fff;
+                    border-top-right-radius: 0;
+                    border-top-left-radius: 10px;
+                }
+            }
+    
+            margin-bottom: 1em;
+        }
+        
+
+.c-chat__message {
+    display: inline-block;
+    background: #4e4e4e;
+    color: whitesmoke;
+
+    padding: 0.6em;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    margin: 5px;
+        
+    animation-name: bounceIn;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    
+    .c-chat__item--human &{
+        /* background: #00ac92; */
+        color: #fff;
+        border-top-right-radius: 0;
+        border-top-left-radius: 10px;
+    }
+    
+}
+
+.c-chat__action {
+    /* border-bottom: 1px dotted #fff; */
+            color: #fff;
+            padding: 0.6em;
+            display: inline-block;
+    
+            animation-name: bounceIn;
+            animation-duration: 0.2s;
+            animation-fill-mode: both;
+    
+            margin-right: 0.8em;
+
+            /* &:hover {
+                border-bottom: 1px dotted transparent; */
+    }
+
+
+
+.c-chat__form {
+    margin-top: 10px;
+}
+
+.c-chat__form input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.c-chat__form input[type="text"]:focus {
+    outline: none;
+    border-color: #4e4e4e;
+}
+
+.c-chat__form input[type="submit"] {
+    display: none;
+}
+&--ready {
+    input {
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn{
+    0%{
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50%{
+      opacity: 0.9;
+      transform: scale(1.1);
+    }
+    80%{
+      opacity: 1;
+      transform: scale(0.89);
+    }
+    100%{
+      opacity: 1;
+      transform: scale(1);
+    }
+  }

@@ -1,0 +1,626 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "goodby": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "bye,care,take": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "later,see,you": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "bye,for,now": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "go,i,must": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "chal,nikal": {
+            "intent": "greetings.bye",
+            "domain": "default"
+          },
+          "hello": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "hi": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "howdi": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "greet": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "namast": {
+            "intent": "greetings.hello",
+            "domain": "default"
+          },
+          "are,servic,what,your": {
+            "intent": "starter",
+            "domain": "default"
+          },
+          "about,me,servic,tell,your": {
+            "intent": "starter",
+            "domain": "default"
+          },
+          "detail,give,of,project": {
+            "intent": "starter",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "greetings.bye": "default",
+          "greetings.hello": "default",
+          "starter": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "goodbye",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "bye take care",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "see you later",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "bye for now",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "i must go",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "chal nikal",
+            "intent": "greetings.bye"
+          },
+          {
+            "domain": "default",
+            "utterance": "hello",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "hi",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "howdy",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "Greetings",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "namaste",
+            "intent": "greetings.hello"
+          },
+          {
+            "domain": "default",
+            "utterance": "What are your services?",
+            "intent": "starter"
+          },
+          {
+            "domain": "default",
+            "utterance": "tell me about your services?",
+            "intent": "starter"
+          },
+          {
+            "domain": "default",
+            "utterance": "give details of projects?",
+            "intent": "starter"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "goodby": 1,
+              "bye": 1,
+              "take": 1,
+              "care": 1,
+              "see": 1,
+              "you": 1,
+              "later": 1,
+              "for": 1,
+              "now": 1,
+              "i": 1,
+              "must": 1,
+              "go": 1,
+              "chal": 1,
+              "nikal": 1,
+              "hello": 1,
+              "hi": 1,
+              "howdi": 1,
+              "greet": 1,
+              "namast": 1,
+              "what": 1,
+              "are": 1,
+              "your": 1,
+              "servic": 1,
+              "tell": 1,
+              "me": 1,
+              "about": 1,
+              "give": 1,
+              "detail": 1,
+              "of": 1,
+              "project": 1
+            },
+            "intents": {
+              "greetings.bye": 1,
+              "greetings.hello": 1,
+              "starter": 1
+            },
+            "intentFeatures": {
+              "greetings.bye": {
+                "goodby": 1,
+                "bye": 1,
+                "take": 1,
+                "care": 1,
+                "see": 1,
+                "you": 1,
+                "later": 1,
+                "for": 1,
+                "now": 1,
+                "i": 1,
+                "must": 1,
+                "go": 1,
+                "chal": 1,
+                "nikal": 1
+              },
+              "greetings.hello": {
+                "hello": 1,
+                "hi": 1,
+                "howdi": 1,
+                "greet": 1,
+                "namast": 1
+              },
+              "starter": {
+                "what": 1,
+                "are": 1,
+                "your": 1,
+                "servic": 1,
+                "tell": 1,
+                "me": 1,
+                "about": 1,
+                "give": 1,
+                "detail": 1,
+                "of": 1,
+                "project": 1
+              }
+            },
+            "featuresToIntent": {
+              "goodby": [
+                "greetings.bye"
+              ],
+              "bye": [
+                "greetings.bye"
+              ],
+              "take": [
+                "greetings.bye"
+              ],
+              "care": [
+                "greetings.bye"
+              ],
+              "see": [
+                "greetings.bye"
+              ],
+              "you": [
+                "greetings.bye"
+              ],
+              "later": [
+                "greetings.bye"
+              ],
+              "for": [
+                "greetings.bye"
+              ],
+              "now": [
+                "greetings.bye"
+              ],
+              "i": [
+                "greetings.bye"
+              ],
+              "must": [
+                "greetings.bye"
+              ],
+              "go": [
+                "greetings.bye"
+              ],
+              "chal": [
+                "greetings.bye"
+              ],
+              "nikal": [
+                "greetings.bye"
+              ],
+              "hello": [
+                "greetings.hello"
+              ],
+              "hi": [
+                "greetings.hello"
+              ],
+              "howdi": [
+                "greetings.hello"
+              ],
+              "greet": [
+                "greetings.hello"
+              ],
+              "namast": [
+                "greetings.hello"
+              ],
+              "what": [
+                "starter"
+              ],
+              "are": [
+                "starter"
+              ],
+              "your": [
+                "starter"
+              ],
+              "servic": [
+                "starter"
+              ],
+              "tell": [
+                "starter"
+              ],
+              "me": [
+                "starter"
+              ],
+              "about": [
+                "starter"
+              ],
+              "give": [
+                "starter"
+              ],
+              "detail": [
+                "starter"
+              ],
+              "of": [
+                "starter"
+              ],
+              "project": [
+                "starter"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "goodby",
+                "bye",
+                "take",
+                "care",
+                "see",
+                "you",
+                "later",
+                "for",
+                "now",
+                "i",
+                "must",
+                "go",
+                "chal",
+                "nikal",
+                "hello",
+                "hi",
+                "howdi",
+                "greet",
+                "namast",
+                "what",
+                "are",
+                "your",
+                "servic",
+                "tell",
+                "me",
+                "about",
+                "give",
+                "detail",
+                "of",
+                "project"
+              ],
+              "intents": [
+                "greetings.bye",
+                "greetings.hello",
+                "starter"
+              ],
+              "perceptrons": [
+                [
+                  10.23054313659668,
+                  5.291916847229004,
+                  2.646214723587036,
+                  2.646214723587036,
+                  3.5274391174316406,
+                  3.5274391174316406,
+                  3.5274391174316406,
+                  2.6453697681427,
+                  2.6453697681427,
+                  3.5272464752197266,
+                  3.5272464752197266,
+                  3.5272464752197266,
+                  5.286680698394775,
+                  5.286680698394775,
+                  -3.6516737937927246,
+                  -3.6358842849731445,
+                  -3.619305372238159,
+                  -3.6019582748413086,
+                  -3.583865165710449,
+                  -0.7292454242706299,
+                  -0.7292454242706299,
+                  -1.332650899887085,
+                  -1.332650899887085,
+                  -0.5208151936531067,
+                  -0.5208151936531067,
+                  -0.5208151936531067,
+                  -0.9847425222396851,
+                  -0.9847425222396851,
+                  -0.9847425222396851,
+                  -0.9847425222396851,
+                  3.683901408570743
+                ],
+                [
+                  -6.626158237457275,
+                  -3.4850564002990723,
+                  -1.7431178092956543,
+                  -1.7431178092956543,
+                  -2.322584629058838,
+                  -2.322584629058838,
+                  -2.322584629058838,
+                  -1.7414302825927734,
+                  -1.7414302825927734,
+                  -2.322260856628418,
+                  -2.322260856628418,
+                  -2.322260856628418,
+                  -3.4749443531036377,
+                  -3.4749443531036377,
+                  7.247100830078125,
+                  7.262910842895508,
+                  7.237736225128174,
+                  7.210971355438232,
+                  7.182648181915283,
+                  -1.3106403350830078,
+                  -1.3106403350830078,
+                  -2.184525728225708,
+                  -2.184525728225708,
+                  -0.8738041520118713,
+                  -0.8738041520118713,
+                  -0.8738041520118713,
+                  -1.747631311416626,
+                  -1.747631311416626,
+                  -1.747631311416626,
+                  -1.747631311416626,
+                  6.988987467124047
+                ],
+                [
+                  -0.7377106547355652,
+                  -0.7527026534080505,
+                  -0.3710554540157318,
+                  -0.3710554540157318,
+                  -0.40823057293891907,
+                  -0.40823057293891907,
+                  -0.40823057293891907,
+                  -0.3230850100517273,
+                  -0.3230850100517273,
+                  -0.3868902623653412,
+                  -0.3868902623653412,
+                  -0.3868902623653412,
+                  -0.4936569631099701,
+                  -0.4936569631099701,
+                  -0.687267005443573,
+                  -0.6765953898429871,
+                  -0.6697111129760742,
+                  -0.6660887002944946,
+                  -0.6642141938209534,
+                  2.553683042526245,
+                  2.553683042526245,
+                  4.256162643432617,
+                  4.256162643432617,
+                  1.7024675607681274,
+                  1.7024675607681274,
+                  1.7024675607681274,
+                  3.404904842376709,
+                  3.404904842376709,
+                  3.404904842376709,
+                  3.404904842376709,
+                  0.6659625551440098
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "goodbye"
+      ],
+      [
+        "en",
+        "bye take care"
+      ],
+      [
+        "en",
+        "see you later"
+      ],
+      [
+        "en",
+        "bye for now"
+      ],
+      [
+        "en",
+        "i must go"
+      ],
+      [
+        "en",
+        "chal nikal"
+      ],
+      [
+        "en",
+        "hello"
+      ],
+      [
+        "en",
+        "hi"
+      ],
+      [
+        "en",
+        "howdy"
+      ],
+      [
+        "en",
+        "Greetings"
+      ],
+      [
+        "en",
+        "namaste"
+      ],
+      [
+        "en",
+        "What are your services?"
+      ],
+      [
+        "en",
+        "tell me about your services?"
+      ],
+      [
+        "en",
+        "give details of projects?"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "en": {
+        "greetings.bye": [
+          {
+            "answer": "see you soon!"
+          },
+          {
+            "answer": "Till next time"
+          },
+          {
+            "answer": "bye bye"
+          },
+          {
+            "answer": "have a great day"
+          }
+        ],
+        "greetings.hello": [
+          {
+            "answer": "Hey there!"
+          },
+          {
+            "answer": "Hello"
+          },
+          {
+            "answer": "Hi"
+          },
+          {
+            "answer": "Greetings"
+          },
+          {
+            "answer": "namaste"
+          }
+        ],
+        "starter": [
+          {
+            "answer": "hi these are the following services...(1)Web Development (2)App Development (3)Graphic Designing"
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}

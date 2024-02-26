@@ -6,7 +6,9 @@ import * as cheerio from 'cheerio';
 // import { SocketConnect } from "./socket";
 // import ChatWindow from './ChatWindow.js';
 import ContactForm from './ContactForm.tsx';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
+import ReactGA from 'react-ga';
 
 interface Message {
     author: string;
@@ -239,7 +241,15 @@ const App: React.FC = () => {
 // Update the fetch URL in your frontend code to match the backend server's URL
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent the default form submission behavior
-
+    ReactGA.event({
+        category: 'User Interaction',
+        action: 'Message Typing',
+        label: 'Chatbot',
+      });
+  
+      // Reset the message input field
+      setMessage('');
+    
     // Access the form data from the event target
     const formData = new FormData(e.currentTarget);
     const userInput = (formData.get('input') as string).toLowerCase();
@@ -609,6 +619,7 @@ else{
                     </svg>
                 </button>
             </form>
+            <SpeedInsights />
         </div>
     );
 }

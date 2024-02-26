@@ -5,10 +5,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 // import { SocketConnect } from "./socket";
 // import ChatWindow from './ChatWindow.js';
-import ContactForm from './ContactForm';
-import ReactGA from 'react-ga';
-import { SpeedInsights } from "@vercel/speed-insights/react"
-
+import ContactForm from './ContactForm.tsx';
 
 
 interface Message {
@@ -246,17 +243,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     // Access the form data from the event target
     const formData = new FormData(e.currentTarget);
     const userInput = (formData.get('input') as string).toLowerCase();
-    ReactGA.event({
-        category: 'Form Submission',
-        action: 'Contact Form Submitted',
-        label: 'Contact Page',
-      });
 
-      ReactGA.event({
-        category: 'User Interaction',
-        action: 'Message Typing',
-        label: 'Chatbot',
-      });
     // Create a bot response based on user input
     let botResponse: Message;
 
@@ -597,6 +584,10 @@ else{
     </ul>
 </div>
 
+
+
+
+
             
      
             {showContactForm && <ContactForm />}
@@ -611,13 +602,13 @@ else{
                     autoComplete="off"
                     required
                 />
+                
                 <button type="submit" className="input-send">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <path d="M490.2 232.7L61.8 4.5C55-1.4 45.3-.4 39.3 5.3c-6 5.7-6.8 14.8-1.1 20.8L443.5 255 38.2 486.9c-5.7 6-5 15.1 1.1 20.8 3.4 3.2 7.8 4.7 12.2 4.7 4.4 0 8.8-1.6 12.2-4.7l428.4-228.2c6.1-5.8 6.8-15 .9-20.8z" fill="currentColor"/>
                     </svg>
                 </button>
             </form>
-            <SpeedInsights />
         </div>
     );
 }

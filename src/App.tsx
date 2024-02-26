@@ -248,7 +248,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       });
   
       // Reset the message input field
-      setMessage('');
+
     
     // Access the form data from the event target
     const formData = new FormData(e.currentTarget);

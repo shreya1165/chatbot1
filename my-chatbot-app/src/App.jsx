@@ -6,6 +6,10 @@ import { SocketConnect } from "./socket";
 
 function App() {
 
+  useEffect(() => {
+    ReactGA.initialize('G-WHX6F7HDK4'); // Replace with your Google Analytics tracking ID
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
 
   <div className="App">
   <SocketConnect />

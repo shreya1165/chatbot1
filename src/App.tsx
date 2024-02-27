@@ -41,7 +41,7 @@ const Messages: Message[] = [
             {
                 text: "How may I help you?",
                 options: [
-                    { url: "/blog/", text: "About Us" },
+                 
                     { url: "/blog/", text: "Services" },
                     { url: "/Contact Details", text: "Contact Details" },
                     // { url: "https://github.com/onefastsnail", text: "Something else" }

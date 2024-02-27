@@ -421,7 +421,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                         <ul>
                             <li><button onClick={() => window.open("https://codestoresolutions.com/web-application-development/", "_blank")}>Web Application Development</button></li>
                             <li><button onClick={() => window.open("https://codestoresolutions.com/mobile-application-development/", "_blank")}>Mobile App Development</button></li>
-                            <li><button onClick={() => window.location.href = "contact/"}>Something else... Contact Team</button></li>
+                           
                         </ul>
                     </div>
                 ),
@@ -480,14 +480,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
 
 else{
-    const userMessage: Message = {
-        author: 'user',
-        body: userInput,
-        timeout: 0
-    };
+    
 
     // Display the user's message and the bot's response
-    handleMessageDisplay(userMessage, chatMessages.length);
+ 
     // Define the URLs to search for user input
     const urlsToSearch = [
         'https://codestoresolutions.com/',

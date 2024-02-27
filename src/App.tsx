@@ -12,6 +12,12 @@ import { Analytics } from "@vercel/analytics/react"
 
 import ReactGA from 'react-ga';
 
+
+
+interface Coordinates {
+    latitude: number;
+    longitude: number;
+}
 interface Message {
     author: string;
     body: string | MessageBody[];
@@ -115,7 +121,41 @@ const App: React.FC = () => {
     const [chatMessages, setChatMessages] = useState<Message[]>([]);
     const chatAreaRef = useRef<HTMLDivElement>(null);
 
+    const location = useLocation();
+
+    const [latitude, setLatitude] = useState<number | null>(null);
+    const [longitude, setLongitude] = useState<number | null>(null);
     
+
+    // Get latitude and longitude data using browser's Geolocation API
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setLatitude(position.coords.latitude);
+                    setLongitude(position.coords.longitude);
+                },
+                (error) => {
+                    console.error('Error getting geolocation:', error);
+                }
+            );
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    }, []);
+    
+
+
+    useEffect(() => {
+        if (latitude !== null && longitude !== null) {
+            ReactGA.set({
+                location: `${latitude}, ${longitude}`,
+                page: location.pathname
+            });
+            ReactGA.pageview(location.pathname);
+        }
+    }, [latitude, longitude, location]);
+
     // return (
     //     <div className="App">
     //       <SocketConnect />
@@ -239,7 +279,7 @@ const App: React.FC = () => {
     
 
     ReactGA.initialize('G-WHX6F7HDK4');
-    const location = useLocation();
+    
 
     useEffect(() => {
       ReactGA.set({ page: location.pathname });
@@ -630,6 +670,7 @@ else{
                 </button>
             </form>
             <SpeedInsights />
+            
             <Analytics />
         </div>
     );

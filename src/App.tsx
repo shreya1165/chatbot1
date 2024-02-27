@@ -7,6 +7,7 @@ import * as cheerio from 'cheerio';
 // import ChatWindow from './ChatWindow.js';
 import ContactForm from './ContactForm.tsx';
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { useLocation } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react"
 
 import ReactGA from 'react-ga';
@@ -237,7 +238,14 @@ const App: React.FC = () => {
     
     
 
-    
+    ReactGA.initialize('G-WHX6F7HDK4');
+    const location = useLocation();
+
+    useEffect(() => {
+      ReactGA.set({ page: location.pathname });
+      ReactGA.pageview(location.pathname);
+    }, [location]);
+  
 
 // Update the fetch URL in your frontend code to match the backend server's URL
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -579,6 +587,7 @@ else{
     
 
     return (
+        
         <div className="main-card">
             <div className="main-title">
                 <div>

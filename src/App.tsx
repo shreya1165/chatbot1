@@ -820,7 +820,7 @@ else{
                     placeholder="Type your message here..."
                     autoComplete="off"
                     required
-                    disabled={isInputDisabled} // Set the disabled attribute based on state
+                    // disabled={isInputDisabled} // Set the disabled attribute based on state
                 />
                 
                 <button type="submit" className="input-send">

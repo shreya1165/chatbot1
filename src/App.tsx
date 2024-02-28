@@ -44,7 +44,7 @@ const Messages: Message[] = [
                  
                     { url: "/blog/", text: "Services" },
                     { url: "/Contact Details", text: "Contact Details" },
-                    // { url: "https://github.com/onefastsnail", text: "Something else" }
+                    { url: "/somethingelse/", text: "Something else" }
                 ]
             }
         ],
@@ -211,6 +211,10 @@ const App: React.FC = () => {
                 };
                 handleMessageDisplay(userMessage, chatMessages.length);
     
+
+
+              
+
 
 
                 
@@ -431,6 +435,39 @@ const App: React.FC = () => {
                         handleMessageDisplay(MigrationResponse, chatMessages.length + 1);
                         break;
                 
+
+
+
+                        case "Something else":
+                            const SomethingelseMessage: Message = {
+                                author: "user",
+                                body: "Somethingelse",
+                                timeout: 0
+                            };
+                            handleMessageDisplay(SomethingelseMessage, chatMessages.length);
+                
+                            const SomethingelseResponse: Message = {
+                                author: "bot",
+                                body: [
+                                    {
+                                        text: "Choose from the below options:",
+                                        options: [
+                                            { url: "/blog/", text: "Industries we serve" },
+                                            { url: "/Contact Details", text: "About Us" },
+                                            { url: "/Contact Details", text: "Our Blogs" },
+                                            { url: "/Contact Details", text: "Career at Codestore" },
+                                            { url: "/Contact Details", text: "Life at CodeStore" },
+                                            { url: "/Contact Details", text: "Hire us" },
+                                            { url: "/Contact Details", text: "Our Portfolio" },
+                                            
+                                        ]
+                                    }
+                                ],
+                                timeout: 0
+                            };
+                            handleMessageDisplay(SomethingelseResponse, chatMessages.length + 1);
+                            break;
+                    
             
             
             
@@ -560,12 +597,11 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                         text: "Did you mean any of these?",
                         options: [
                             { 
-                                url: "https://codestoresolutions.com/web-application-development/", 
-                                text: "Web App: If you plan to build an application for your business that can be accessed from anywhere and provide a super-fine workflow, our team can help you achieve that. We have skills available across various technologies to build robust, scalable, and secured web applications." 
+                                url: "/blog/", text: "Web Development" 
                             },
                             { 
-                                url: "contact/", 
-                                text: "Something else... Contact Team" 
+                                url: "/somethingelse/", 
+                                text: "Something else" 
                             }
                         ]
                     }

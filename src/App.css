@@ -318,16 +318,17 @@ body {
 .close-button {
   background-color: transparent;
   color: #1B2032;
-  border: none;
-  padding: 8px 12px;
+  border-radius: 5px;
+  padding: 4px 10px;
   cursor: pointer;
   font-size: 14px;
-  border-radius: 4px;
+  
   transition: background-color 0.3s ease;
 }
 
 .close-button:hover {
-  background-color: #eee;
+  background-color: #222647;
+  color: whitesmoke;
 }
 
 
@@ -357,6 +358,7 @@ body {
 
 .form-container button[type="submit"] {
   padding: 10px 20px;
+  margin-bottom: 10px;
   background-color: #1B2032;
   color: #fff;
   border: none;

@@ -12,7 +12,7 @@ import { Analytics } from "@vercel/analytics/react"
 
 import ReactGA from 'react-ga';
 
-
+import getLocation from './getLocation.tsx';
 
 interface Coordinates {
     latitude: number;
@@ -139,10 +139,13 @@ const App: React.FC = () => {
                     console.error('Error getting geolocation:', error);
                 }
             );
+            
         } else {
             console.error('Geolocation is not supported by this browser.');
         }
+        
     }, []);
+    
     
 
 
@@ -219,6 +222,10 @@ const App: React.FC = () => {
                                 { url: "/blog/", text: "Web Development" },
                                 { url: "/Contact Details", text: "App Development" },
                                 { url: "/Contact Details", text: "UI/UX Design" },
+                                { url: "/Contact Details", text: "Custom Software Development" },
+                                { url: "/Contact Details", text: "Cloud App Development" },
+                                { url: "/Contact Details", text: "Software Testing" },
+                                { url: "/Contact Details", text: "Support and Maintenance" },
                             ]
                         }
                     ],
@@ -236,7 +243,11 @@ const App: React.FC = () => {
     
                 const webDevelopmentResponse: Message = {
                     author: "bot",
-                    body: "Web development: CodeStore is a trusted web application development company that has been assisting businesses with the best technical talent for years to design and build custom websites and web applications for businesses across various industries. We combine creativity, innovation, and robust programming to provide custom web application development. For more details visit: <a href='https://codestoresolutions.com/web-application-development/'>Click here</a>",
+                    body: <div>
+                    CodeStore is a trusted web application development company that has been assisting businesses with the best technical talent for years to design and build custom websites and web applications for businesses across various industries. We combine creativity, innovation, and robust programming to provide custom web application development.
+                    <br />
+                    For more details, visit: <a href="https://codestoresolutions.com/web-application-development/"style={{ color: 'white' }}>https://codestoresolutions.com/web-application-development/</a>
+                </div>,
                     timeout: 0
                 };
                 handleMessageDisplay(webDevelopmentResponse, chatMessages.length + 1);
@@ -251,7 +262,11 @@ const App: React.FC = () => {
     
                 const appDevelopmentResponse: Message = {
                     author: "bot",
-                    body: "App development: We are one of the leading mobile application development companies in India and work extensively with businesses across various industries to build custom mobile applications to cater to business requirements. We understand the importance of having a robust mobile presence in today’s digital landscape and can create high-quality, user-friendly mobile apps for our clients across the globe. For more details visit: <a href='https://codestoresolutions.com/mobile-application-development/'>Click here</a>",
+                    body: <div>
+                    If you operate in a highly competitive market and want to make your offerings more accessible to your customers you can build a mobile application. Our team of mobile app developers can understand your business requirements and come up with a solution.
+                    <br />
+                    For more details, visit: <a href="https://codestoresolutions.com/mobile-application-development/"style={{ color: 'white' }}>https://codestoresolutions.com/mobile-application-development/</a>
+                </div>,
                     timeout: 0
                 };
                 handleMessageDisplay(appDevelopmentResponse, chatMessages.length + 1);
@@ -266,12 +281,108 @@ const App: React.FC = () => {
     
                 const uiUxDesignResponse: Message = {
                     author: "bot",
-                    body: "UI/UX Design: CodeStore offers various UI/UX services designed to help businesses create engaging and user-friendly digital experiences.In today’s fast-paced and competitive digital landscape, creating a great user experience is crucial to the success of any website, app, or product. A great UI/UX design can help businesses engage users, improve brand loyalty and increase conversions. For more details visit: <a href='https://codestoresolutions.com/ui-ux-design/'>Click here</a>",
+                    body: <div>
+                    If you operate in a highly competitive market and want to make your offerings more accessible to your customers you can build a mobile application. Our team of mobile app developers can understand your business requirements and come up with a solution.
+                    <br />
+                    For more details, visit: <a href="https://codestoresolutions.com/ui-ux-design/"style={{ color: 'white' }}>https://codestoresolutions.com/ui-ux-design/</a>
+                </div>,
                     timeout: 0
                 };
                 handleMessageDisplay(uiUxDesignResponse, chatMessages.length + 1);
                 break;
-            default:
+            
+
+
+                case "Custom Software Development":
+                    const CustomSoftwareDevelopmentMessage: Message = {
+                        author: "user",
+                        body: "Custom Software Development",
+                        timeout: 0
+                    };
+                    handleMessageDisplay(CustomSoftwareDevelopmentMessage, chatMessages.length);
+        
+                    const CustomSoftwareDevelopmentResponse: Message = {
+                        author: "bot",
+                        body: <div>
+                        We provide custom software development services to help businesses and organizations of all sizes to improve their operations, streamline their processes, and achieve their goals. Our team of experienced software engineers understands the unique needs of our clients to design and develop software that addresses those needs.
+                        <br />
+                        For more details, visit: <a href="https://codestoresolutions.com/custom-software-development/"style={{ color: 'white' }}>https://codestoresolutions.com/custom-software-development/</a>
+                    </div>,
+                        timeout: 0
+                    };
+                    handleMessageDisplay(CustomSoftwareDevelopmentResponse, chatMessages.length + 1);
+                    break;
+
+
+
+                    case "Cloud App Development":
+                    const CloudAppDevelopmentMessage: Message = {
+                        author: "user",
+                        body: "Cloud App Development",
+                        timeout: 0
+                    };
+                    handleMessageDisplay(CloudAppDevelopmentMessage, chatMessages.length);
+        
+                    const CloudAppDevelopmentResponse: Message = {
+                        author: "bot",
+                        body: <div>
+                        We offer a range of cloud app development services designed to meet the needs of businesses of all sizes and industries.
+                        <br />
+                        For more details, visit: <a href="https://codestoresolutions.com/cloud-app-development/"style={{ color: 'white' }}>https://codestoresolutions.com/cloud-app-development/</a>
+                    </div>,
+                        timeout: 0
+                    };
+                    handleMessageDisplay(CloudAppDevelopmentResponse, chatMessages.length + 1);
+                    break;
+            
+
+
+                    case "Software Testing":
+                        const SoftwareTestingMessage: Message = {
+                            author: "user",
+                            body: "Software Testing",
+                            timeout: 0
+                        };
+                        handleMessageDisplay(SoftwareTestingMessage, chatMessages.length);
+            
+                        const SoftwareTestingResponse: Message = {
+                            author: "bot",
+                            body: <div>
+                           Look no further ! CodeStore Technologies provides you the best ever Quality assurance services with an extremely skilled team of quality inspectors who work tirelessly to meet your objectives.
+                            <br />
+                            For more details, visit: <a href="https://codestoresolutions.com/software-testing-qa/"style={{ color: 'white' }}>https://codestoresolutions.com/software-testing-qa/</a>
+                        </div>,
+                            timeout: 0
+                        };
+                        handleMessageDisplay(SoftwareTestingResponse, chatMessages.length + 1);
+                        break;
+
+
+                        case "Support and Maintenance":
+                        const SupportandMaintenanceMessage: Message = {
+                            author: "user",
+                            body: "Support and Maintenance",
+                            timeout: 0
+                        };
+                        handleMessageDisplay(SupportandMaintenanceMessage, chatMessages.length);
+            
+                        const SupportandMaintenanceResponse: Message = {
+                            author: "bot",
+                            body: <div>
+                           We at CodeStore are committed to ensuring the smooth operations of our clients through comprehensive and reliable support and maintenance services. Our support and maintenance services include bug-fixing, minor application changes, and adding new features.
+                            <br />
+                            For more details, visit: <a href="https://codestoresolutions.com/software-maintenance/"style={{ color: 'white' }}>https://codestoresolutions.com/software-maintenance/</a>
+                        </div>,
+                            timeout: 0
+                        };
+                        handleMessageDisplay(SupportandMaintenanceResponse, chatMessages.length + 1);
+                        break;
+                
+            
+            
+            
+            
+                default:
                 break;
         }
     };
@@ -639,7 +750,6 @@ else{
         ))}
     </ul>
 </div>
-
 
 
 

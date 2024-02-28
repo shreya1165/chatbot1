@@ -9,10 +9,12 @@ import ContactForm from './ContactForm.tsx';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useLocation } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react"
+import './WaitDots.tsx'
 
 import ReactGA from 'react-ga';
 
 import getLocation from './getLocation.tsx';
+
 
 interface Coordinates {
     latitude: number;
@@ -59,6 +61,7 @@ const Messages: Message[] = [
 interface MessageProps {
     data: Message;
     handleClick: (option: MessageBody) => void;
+    
 }
 const Message: React.FC<MessageProps> = ({ data, handleClick }) => {
     const { author, body } = data;
@@ -146,6 +149,9 @@ const App: React.FC = () => {
         
     }, []);
     
+    
+
+
     
 
 
@@ -459,6 +465,7 @@ const App: React.FC = () => {
                                             { url: "/Contact Details", text: "Life at CodeStore" },
                                             { url: "/Contact Details", text: "Hire us" },
                                             { url: "/Contact Details", text: "Our Portfolio" },
+                                            { url: "/Contact Details", text: "Contact Details" },
                                             
                                         ]
                                     }
@@ -497,15 +504,45 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         label: 'Chatbot',
       });
   
+      
       // Reset the message input field
 
     
     // Access the form data from the event target
     const formData = new FormData(e.currentTarget);
+    if (e.currentTarget) {
+        e.currentTarget.reset(); // Reset the form if the current target exists
+    } else {
+        console.error('Form element not found');
+    }
+
     const userInput = (formData.get('input') as string).toLowerCase();
 
     // Create a bot response based on user input
     let botResponse: Message;
+
+
+
+
+// const Container: React.FC = () => {
+//     return (
+//         <div id="container">
+//             <div id="loading-bubble">
+//                 <div className="spinner">
+//                     <div className="bounce1"></div>
+//                     <div className="bounce2"></div>
+//                     <div className="bounce3"></div>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+
+
+
+
+
+
 
     const userMessage: Message = {
         author: 'user',
@@ -691,9 +728,37 @@ else{
         'https://codestoresolutions.com/portfolio/',
         'https://codestoresolutions.com/contact-us/',
         'https://codestoresolutions.com/blog/',
-        'https://codestoresolutions.com/career/'
+        'https://codestoresolutions.com/career/',
+        'https://codestoresolutions.com/culture/life-at-codestore/',
+        'https://codestoresolutions.com/custom-software-development/',
+        'https://codestoresolutions.com/web-application-development/',
+        'https://codestoresolutions.com/mobile-application-development/',
+        'https://codestoresolutions.com/cloud-app-development/',
+        'https://codestoresolutions.com/ui-ux-design/',
+        'https://codestoresolutions.com/scope-development/',
+        'https://codestoresolutions.com/software-testing-qa/',
+        'https://codestoresolutions.com/software-maintenance/',
+        'https://codestoresolutions.com/migration/',
+        'https://codestoresolutions.com/healthcare-app-development/',
+        'https://codestoresolutions.com/energy-gas-app-development/',
+        'https://codestoresolutions.com/education-e-learning-app-development/',
+        'https://codestoresolutions.com/logistics-app-development/',
+        'https://codestoresolutions.com/e-commerce-app-development/',
+        'https://codestoresolutions.com/finance-app-development/',
+        'https://codestoresolutions.com/on-demand-app-development/',
+        'https://codestoresolutions.com/digital-marketing/',
+        'https://codestoresolutions.com/sports-app-development/'
+
         
     ];
+      
+
+    // Clear the input field after submission
+    if (e.currentTarget) {
+        e.currentTarget.reset(); // Reset the form if the current target exists
+    } else {
+        console.error('Form element not found');
+    }
 
     let searchResults = [];
 
@@ -804,18 +869,11 @@ else{
 
 
 }
-    
+handleMessageDisplay(botResponse, chatMessages.length + 1);
 
     // Add the user's message to the chat
     
-    handleMessageDisplay(botResponse, chatMessages.length + 1);
-
-    // Clear the input field after submission
-    if (e.currentTarget) {
-        e.currentTarget.reset(); // Reset the form if the current target exists
-    } else {
-        console.error('Form element not found');
-    }
+  
 };
 
 
@@ -834,7 +892,9 @@ else{
             <div className="line"></div>
             <div className="chat-area"  ref={chatAreaRef}>
     <ul className="c-chat__list">
+    
         {chatMessages.map((message, index) => (
+            
             <Message key={index} data={message} handleClick={handleClick} />
         ))}
     </ul>
@@ -860,6 +920,7 @@ else{
                 />
                 
                 <button type="submit" className="input-send">
+                   
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <path d="M490.2 232.7L61.8 4.5C55-1.4 45.3-.4 39.3 5.3c-6 5.7-6.8 14.8-1.1 20.8L443.5 255 38.2 486.9c-5.7 6-5 15.1 1.1 20.8 3.4 3.2 7.8 4.7 12.2 4.7 4.4 0 8.8-1.6 12.2-4.7l428.4-228.2c6.1-5.8 6.8-15 .9-20.8z" fill="currentColor"/>
                     </svg>

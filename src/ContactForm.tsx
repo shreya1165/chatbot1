@@ -6,7 +6,9 @@ const ContactForm: React.FC = () => {
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        
         e.preventDefault();
+        
 
         const formData = new FormData(e.currentTarget);
 

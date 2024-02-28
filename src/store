@@ -152,3 +152,41 @@ body {
       transform: scale(1);
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Inside the App component
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
+  
+  const toggleContactForm = () => {
+      console.log('Toggling contact form');
+      setShowContactForm(!showContactForm);
+      setIsInputDisabled(!isInputDisabled); // Toggle the input field disabled state
+  };
+  
+  // Inside the JSX return statement
+  <input
+      type="text"
+      name="input"
+      className="input-message"
+      placeholder="Type your message here..."
+      autoComplete="off"
+      required
+      disabled={isInputDisabled} // Set the disabled attribute based on state
+  />
+  
+  // Then, update the JSX where you render the contact form
+  {showContactForm && <ContactForm toggleContactForm={toggleContactForm} />}
+  

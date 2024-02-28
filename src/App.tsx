@@ -166,12 +166,13 @@ const App: React.FC = () => {
     //   );
 
 
-    
+    const [isInputDisabled, setIsInputDisabled] = useState(false);
     
     const [showContactForm, setShowContactForm] = useState(false);
     const toggleContactForm = () => {
         console.log('Toggling contact form');
         setShowContactForm(!showContactForm);
+        setIsInputDisabled(!isInputDisabled); // Toggle the input field disabled state
     };
     
     
@@ -226,6 +227,8 @@ const App: React.FC = () => {
                                 { url: "/Contact Details", text: "Cloud App Development" },
                                 { url: "/Contact Details", text: "Software Testing" },
                                 { url: "/Contact Details", text: "Support and Maintenance" },
+                                { url: "/Contact Details", text: "Scoping and Wireframing" },
+                                { url: "/Contact Details", text: "Migration" },
                             ]
                         }
                     ],
@@ -376,6 +379,56 @@ const App: React.FC = () => {
                             timeout: 0
                         };
                         handleMessageDisplay(SupportandMaintenanceResponse, chatMessages.length + 1);
+                        break;
+
+
+
+
+
+
+                        case "Scoping and Wireframing":
+                        const ScopingandWireframingMessage: Message = {
+                            author: "user",
+                            body: "Scoping and Wireframing",
+                            timeout: 0
+                        };
+                        handleMessageDisplay(ScopingandWireframingMessage, chatMessages.length);
+            
+                        const ScopingandWireframingResponse: Message = {
+                            author: "bot",
+                            body: <div>
+                           Scoping and wireframing are critical steps in the software development process. They define the scope of a project, set the foundation for design, and provide a clear understanding of what the final product will look like and how it will function.
+                            <br />
+                            For more details, visit: <a href="https://codestoresolutions.com/scope-development/"style={{ color: 'white' }}>https://codestoresolutions.com/scope-development/</a>
+                        </div>,
+                            timeout: 0
+                        };
+                        handleMessageDisplay(ScopingandWireframingResponse, chatMessages.length + 1);
+                        break;
+
+
+
+
+
+                        
+                        case "Migration":
+                        const MigrationMessage: Message = {
+                            author: "user",
+                            body: "Migration",
+                            timeout: 0
+                        };
+                        handleMessageDisplay(MigrationMessage, chatMessages.length);
+            
+                        const MigrationResponse: Message = {
+                            author: "bot",
+                            body: <div>
+                           We offer a comprehensive range of software porting and migration services aimed at helping organizations to transition their software from one platform to another with minimal disruption to business operations. Our experienced professionals will work closely with you to assess your current systems, understand your requirements, and develop a tailored solution that meets your specific needs.
+                            <br />
+                            For more details, visit: <a href="https://codestoresolutions.com/migration/"style={{ color: 'white' }}>https://codestoresolutions.com/migration/</a>
+                        </div>,
+                            timeout: 0
+                        };
+                        handleMessageDisplay(MigrationResponse, chatMessages.length + 1);
                         break;
                 
             
@@ -756,7 +809,7 @@ else{
 
             
      
-            {showContactForm && <ContactForm />}
+{showContactForm && <ContactForm toggleContactForm={toggleContactForm} />}
 
 
             <form className="input-div" onSubmit={handleSubmit}>
@@ -767,6 +820,7 @@ else{
                     placeholder="Type your message here..."
                     autoComplete="off"
                     required
+                    disabled={isInputDisabled} // Set the disabled attribute based on state
                 />
                 
                 <button type="submit" className="input-send">

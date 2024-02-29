@@ -807,6 +807,7 @@ else{
                 const response = await axios.get(searchResult);
                 const html = response.data;
                 const $ = cheerio.load(html);
+                
     
                 // Extract the heading
                 const heading = $('h1').text(); // Assuming the heading is in an h1 tag
@@ -834,21 +835,19 @@ else{
                 });
     
                 // Construct the bot response
-                botResponse = {
-                    author: 'bot',
-                    body: (
-                        <div>
-                            <h4>{heading}</h4>
-                            {foundParagraph && <p dangerouslySetInnerHTML={{ __html: foundParagraph }}></p>}
-                            {anchorLinks.map((link, index) => (
-                                <p key={index} dangerouslySetInnerHTML={{ __html: link }}></p>
-                            ))}
-                            <button><a href={searchResult} target="_blank">Read more</a></button> {/* Provide a link to the full content */}
-                            <button onClick={handleNextSearch}>Something Else</button> {/* Option for next search */}
-                        </div>
-                    ),
-                    timeout: 0
-                };
+                  if (searchResults.length > 0) {
+                    botResponse = {
+                        author: 'bot',
+                        body: `Found ${searchResults.length} results for "${userInput}":\n${searchResults.join('\n')}`,
+                        timeout: 0
+                    };
+                } else {
+                    botResponse = {
+                        author: 'bot',
+                        body: `Sorry, "${userInput}" was not found on any of the provided websites.`,
+                        timeout: 0
+                    };
+                }
             } catch (error) {
                 console.error('Error occurred while fetching or parsing HTML:', error);
                 botResponse = {

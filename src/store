@@ -11,6 +11,23 @@ body {
     width: 50%;
 }
 
+if (searchResults.length > 0) {
+    botResponse = {
+        author: 'bot',
+        body: `Found ${searchResults.length} results for "${userInput}":\n${searchResults.join('\n')}`,
+        timeout: 0
+    };
+} else {
+    botResponse = {
+        author: 'bot',
+        body: `Sorry, "${userInput}" was not found on any of the provided websites.`,
+        timeout: 0
+    };
+}
+
+
+
+
 .b-chat {
     width: 90%;
     margin: 0 5%;

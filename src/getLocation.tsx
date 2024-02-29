@@ -10,25 +10,55 @@ const getLocation = () => {
     }
 };
 
-const sendPosition = (position) => {
+const sendPosition = async (position) => {
     const { latitude, longitude } = position.coords;
-    fetch('http://localhost:5000/api/location', {
+
+    try{
+        const ipResponse= await fetch ('https://api.ipify.org?format=json');
+        const ipData= await ipResponse.json();
+        const ipAddress=ipData.ip;
+    
+        const dataToSend ={
+            latitude,
+            longitude,
+            ipAddress,
+        };
+
+
+
+    const response = await fetch('http://localhost:5000/api/location', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ latitude, longitude })
-    })
-    .then(response =>{
-        if (!response.ok){
-            throw new error("HTTP error! status: ${response.status}");
+        body: JSON.stringify(dataToSend),
+    });
 
-        }
-        return response.text();
-    })
+const responseData = await response.text();
+console.log(responseData);
+    }catch(error){
+        console.error('Error:', error);
+    }
+
+
+//     .then(response =>{
+//         if (!response.ok){
+//             throw new error("HTTP error! status: ${response.status}");
+
+//         }
+//         return response.text();
+//     })
     
-    .then(data => console.log(data))
-    .catch(error => console.error('Fetch error', error));
+//     .then(data => console.log(data))
+//     .catch(error => console.error('Fetch error', error));
+// };
+
+
+
+
 };
+
+
+
 
 export default getLocation;

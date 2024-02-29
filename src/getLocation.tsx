@@ -1,6 +1,7 @@
 
 import './App.css';
 
+
 const getLocation = () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(sendPosition);
@@ -18,9 +19,16 @@ const sendPosition = (position) => {
         },
         body: JSON.stringify({ latitude, longitude })
     })
-    .then(response => response.text())
+    .then(response =>{
+        if (!response.ok){
+            throw new error("HTTP error! status: ${response.status}");
+
+        }
+        return response.text();
+    })
+    
     .then(data => console.log(data))
-    .catch(error => console.log(error));
+    .catch(error => console.error('Fetch error', error));
 };
 
 export default getLocation;

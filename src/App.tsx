@@ -124,30 +124,35 @@ const App: React.FC = () => {
     const [chatMessages, setChatMessages] = useState<Message[]>([]);
     const chatAreaRef = useRef<HTMLDivElement>(null);
 
-    const location = useLocation();
+    // const location = useLocation();
 
-    const [latitude, setLatitude] = useState<number | null>(null);
-    const [longitude, setLongitude] = useState<number | null>(null);
+    // const [latitude, setLatitude] = useState<number | null>(null);
+    // const [longitude, setLongitude] = useState<number | null>(null);
     
+
+
+    useEffect(()=>{
+        getLocation();
+    }, []);
 
     // Get latitude and longitude data using browser's Geolocation API
-    useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setLatitude(position.coords.latitude);
-                    setLongitude(position.coords.longitude);
-                },
-                (error) => {
-                    console.error('Error getting geolocation:', error);
-                }
-            );
+    // useEffect(() => {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(
+    //             (position) => {
+    //                 setLatitude(position.coords.latitude);
+    //                 setLongitude(position.coords.longitude);
+    //             },
+    //             (error) => {
+    //                 console.error('Error getting geolocation:', error);
+    //             }
+    //         );
             
-        } else {
-            console.error('Geolocation is not supported by this browser.');
-        }
+    //     } else {
+    //         console.error('Geolocation is not supported by this browser.');
+    //     }
         
-    }, []);
+    // }, []);
     
     
 
@@ -155,15 +160,15 @@ const App: React.FC = () => {
     
 
 
-    useEffect(() => {
-        if (latitude !== null && longitude !== null) {
-            ReactGA.set({
-                location: `${latitude}, ${longitude}`,
-                page: location.pathname
-            });
-            ReactGA.pageview(location.pathname);
-        }
-    }, [latitude, longitude, location]);
+    // useEffect(() => {
+    //     if (latitude !== null && longitude !== null) {
+    //         ReactGA.set({
+    //             location: `${latitude}, ${longitude}`,
+    //             page: location.pathname
+    //         });
+    //         ReactGA.pageview(location.pathname);
+    //     }
+    // }, [latitude, longitude, location]);
 
     // return (
     //     <div className="App">
@@ -489,10 +494,10 @@ const App: React.FC = () => {
     ReactGA.initialize('G-WHX6F7HDK4');
     
 
-    useEffect(() => {
-      ReactGA.set({ page: location.pathname });
-      ReactGA.pageview(location.pathname);
-    }, [location]);
+    // useEffect(() => {
+    //   ReactGA.set({ page: location.pathname });
+    //   ReactGA.pageview(location.pathname);
+    // }, [location]);
   
 
 // Update the fetch URL in your frontend code to match the backend server's URL

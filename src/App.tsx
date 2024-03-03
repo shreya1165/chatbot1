@@ -9,6 +9,8 @@ import ContactForm from './ContactForm.tsx';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useLocation } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react"
+import Chatbot from './Chatbot.tsx';
+
 import './WaitDots.tsx'
 
 import ReactGA from 'react-ga';
@@ -30,6 +32,8 @@ interface MessageBody {
     url: string;
     text: string;
 }
+
+
 
 const Messages: Message[] = [
     {
@@ -63,7 +67,17 @@ interface MessageProps {
     handleClick: (option: MessageBody) => void;
     
 }
+
+
 const Message: React.FC<MessageProps> = ({ data, handleClick }) => {
+    // Check if data is defined before attempting to destructure
+    if (!data) {
+      console.error('Error: Message data is undefined.');
+      // Handle the error or return a default component/message
+      return <div>Error: Message data is undefined</div>;
+    }
+  
+    // Destructure properties from data
     const { author, body } = data;
 
     let finalBody: JSX.Element | JSX.Element[];
@@ -723,154 +737,17 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
 else{
     
-
-    // Display the user's message and the bot's response
- 
-    // Define the URLs to search for user input
-    const urlsToSearch = [
-        'https://codestoresolutions.com/',
-        'https://codestoresolutions.com/about-us/',
-        'https://codestoresolutions.com/portfolio/',
-        'https://codestoresolutions.com/contact-us/',
-        'https://codestoresolutions.com/blog/',
-        'https://codestoresolutions.com/career/',
-        'https://codestoresolutions.com/culture/life-at-codestore/',
-        'https://codestoresolutions.com/custom-software-development/',
-        'https://codestoresolutions.com/web-application-development/',
-        'https://codestoresolutions.com/mobile-application-development/',
-        'https://codestoresolutions.com/cloud-app-development/',
-        'https://codestoresolutions.com/ui-ux-design/',
-        'https://codestoresolutions.com/scope-development/',
-        'https://codestoresolutions.com/software-testing-qa/',
-        'https://codestoresolutions.com/software-maintenance/',
-        'https://codestoresolutions.com/migration/',
-        'https://codestoresolutions.com/healthcare-app-development/',
-        'https://codestoresolutions.com/energy-gas-app-development/',
-        'https://codestoresolutions.com/education-e-learning-app-development/',
-        'https://codestoresolutions.com/logistics-app-development/',
-        'https://codestoresolutions.com/e-commerce-app-development/',
-        'https://codestoresolutions.com/finance-app-development/',
-        'https://codestoresolutions.com/on-demand-app-development/',
-        'https://codestoresolutions.com/digital-marketing/',
-        'https://codestoresolutions.com/sports-app-development/'
-
-        
-    ];
-      
-
-    // Clear the input field after submission
-    if (e.currentTarget) {
-        e.currentTarget.reset(); // Reset the form if the current target exists
-    } else {
-        console.error('Form element not found');
-    }
-
-    let searchResults = [];
-
-    // Search each URL for the user input
-    for (const url of urlsToSearch) {
-        try {
-            const response = await axios.get(url);
-            const html = response.data;
-            const $ = cheerio.load(html);
-            const text = $('body').text().toLowerCase();
-            if (text.includes(userInput)) {
-                // Create anchor links for each occurrence of the search term in the paragraph
-                const regex = new RegExp(userInput, 'gi'); // Case-insensitive search
-                const matches = text.match(regex);
-                if (matches) {
-                    matches.forEach(match => {
-                        // Modify the URL to include anchor links to the specific word
-                        const anchorURL = `${url}#${match}`;
-                        searchResults.push(anchorURL);
-                    });
-                }
-            }
-        } catch (error) {
-            console.error('Error occurred while fetching or parsing HTML:', error);
-        }
-    }
-    
-    let nextSearchIndex = 0; // Initialize nextSearchIndex
-
-    // Define a function to handle the "Next" button click
-    const handleNextSearch = async () => {
-        nextSearchIndex++; // Increment nextSearchIndex for the next search
-        await performSearch(); // Call performSearch again for the next search
+    botResponse = {
+        author: 'bot',
+        body: (
+            <div>
+                {/* Include the Chatbot component here */}
+                <Chatbot />
+            </div>
+        ),
+        timeout: 0
     };
-    
-    // Define the performSearch function
-    const performSearch = async () => {
-        if (searchResults.length > 0) {
-            const searchResult = searchResults[nextSearchIndex % searchResults.length]; // Get the next search result in a loop
-            try {
-                const response = await axios.get(searchResult);
-                const html = response.data;
-                const $ = cheerio.load(html);
-                
-    
-                // Extract the heading
-                const heading = $('h1').text(); // Assuming the heading is in an h1 tag
-    
-                let foundParagraph = ''; // Initialize an empty string to store the found paragraph
-                let anchorLinks = []; // Initialize an array to store anchor links
-    
-                $('p').each((index, element) => {
-                    const paragraphText = $(element).text().trim();
-                    if (paragraphText.toLowerCase().includes(userInput.toLowerCase())) {
-                        // Update the found paragraph
-                        foundParagraph = paragraphText;
-                        // Create anchor links for each occurrence of the search term in the paragraph
-                        const regex = new RegExp(userInput, 'gi'); // Case-insensitive search
-                        const matches = paragraphText.match(regex);
-                        if (matches) {
-                            matches.forEach(match => {
-                                // Create anchor link and push to the array
-                                const anchorLink = `<a href="${searchResult}#${match}" target="_blank">${match}</a>`;
-                                anchorLinks.push(anchorLink);
-                            });
-                        }
-                        return false; // Exit the loop after finding the first matching paragraph
-                    }
-                });
-    
-                // Construct the bot response
-                  if (searchResults.length > 0) {
-                    botResponse = {
-                        author: 'bot',
-                        body: `Found ${searchResults.length} results for "${userInput}":\n${searchResults.join('\n')}`,
-                        timeout: 0
-                    };
-                } else {
-                    botResponse = {
-                        author: 'bot',
-                        body: `Sorry, "${userInput}" was not found on any of the provided websites.`,
-                        timeout: 0
-                    };
-                }
-            } catch (error) {
-                console.error('Error occurred while fetching or parsing HTML:', error);
-                botResponse = {
-                    author: 'bot',
-                    body: `Error occurred while fetching or parsing HTML for "${userInput}"`,
-                    timeout: 0
-                };
-            }
-        } else {
-            botResponse = {
-                author: 'bot',
-                body: `Sorry, "${userInput}" was not found on the website.`,
-                timeout: 0
-            };
-        }
-    };
-    
-    
-    // Initial call to perform the search
-    await performSearch();
-    
-    
-
+  
 
 }
 handleMessageDisplay(botResponse, chatMessages.length + 1);

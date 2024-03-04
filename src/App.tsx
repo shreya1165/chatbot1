@@ -10,7 +10,7 @@ import ContactForm from './ContactForm.tsx';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useLocation } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react"
-import './WaitDots.tsx'
+// import './WaitDots.tsx'
 
 import ReactGA from 'react-ga';
 

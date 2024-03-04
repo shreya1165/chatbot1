@@ -2,15 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import './ContactForm.tsx';
 import axios from 'axios';
-
 import * as cheerio from 'cheerio';
 // import { SocketConnect } from "./socket";
 // import ChatWindow from './ChatWindow.js';
 import ContactForm from './ContactForm.tsx';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useLocation } from 'react-router-dom';
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import Chatbot from './Chatbot.tsx';
 
+// import './WaitDots.tsx'
 
 import ReactGA from 'react-ga';
 
@@ -65,7 +66,11 @@ interface MessageProps {
     
 }
 const Message: React.FC<MessageProps> = ({ data, handleClick }) => {
-    const { author, body } = data;
+   
+        const { author, body } = data;
+     
+  
+
 
     let finalBody: JSX.Element | JSX.Element[];
     let avatarImageSrc = '';
@@ -124,27 +129,7 @@ const Message: React.FC<MessageProps> = ({ data, handleClick }) => {
 const App: React.FC = () => {
     const [chatMessages, setChatMessages] = useState<Message[]>([]);
     const chatAreaRef = useRef<HTMLDivElement>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const buttonHandler = () => {
-      setIsLoading(current => !current)
-    }
-  
 
-
-    useEffect( () => {
-        const fetchData =async ()=>{
-            try{
-                setIsLoading(true);
-                await new Promise((resolve)=> setTimeout(resolve, 2000));
-
-                setIsLoading(false);
-            }catch (error){
-                console.error('error fetching data:',error);
-                setIsLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
     // const location = useLocation();
 
     // const [latitude, setLatitude] = useState<number | null>(null);
@@ -222,10 +207,7 @@ const App: React.FC = () => {
     }, [chatMessages]);
     
 
-    
-
     const handleMessageDisplay = (message: Message, index: number) => {
-        
         setTimeout(() => {
             setChatMessages(prevMessages => [...prevMessages, message]);
         }, index * 300);
@@ -751,159 +733,16 @@ else{
     // Display the user's message and the bot's response
  
     // Define the URLs to search for user input
-    const urlsToSearch = [
-        'https://codestoresolutions.com/',
-        'https://codestoresolutions.com/about-us/',
-        'https://codestoresolutions.com/portfolio/',
-        'https://codestoresolutions.com/contact-us/',
-        'https://codestoresolutions.com/blog/',
-        'https://codestoresolutions.com/career/',
-        'https://codestoresolutions.com/culture/life-at-codestore/',
-        'https://codestoresolutions.com/custom-software-development/',
-        'https://codestoresolutions.com/web-application-development/',
-        'https://codestoresolutions.com/mobile-application-development/',
-        'https://codestoresolutions.com/cloud-app-development/',
-        'https://codestoresolutions.com/ui-ux-design/',
-        'https://codestoresolutions.com/scope-development/',
-        'https://codestoresolutions.com/software-testing-qa/',
-        'https://codestoresolutions.com/software-maintenance/',
-        'https://codestoresolutions.com/migration/',
-        'https://codestoresolutions.com/healthcare-app-development/',
-        'https://codestoresolutions.com/energy-gas-app-development/',
-        'https://codestoresolutions.com/education-e-learning-app-development/',
-        'https://codestoresolutions.com/logistics-app-development/',
-        'https://codestoresolutions.com/e-commerce-app-development/',
-        'https://codestoresolutions.com/finance-app-development/',
-        'https://codestoresolutions.com/on-demand-app-development/',
-        'https://codestoresolutions.com/digital-marketing/',
-        'https://codestoresolutions.com/sports-app-development/'
-
-        
-    ];
-      
-
-    // Clear the input field after submission
-    if (e.currentTarget) {
-        e.currentTarget.reset(); // Reset the form if the current target exists
-    } else {
-        console.error('Form element not found');
-    }
-
-    let searchResults = [];
-
-    // Search each URL for the user input
-    for (const url of urlsToSearch) {
-        try {
-            const response = await axios.get(url);
-            const html = response.data;
-            const $ = cheerio.load(html);
-            const text = $('body').text().toLowerCase();
-            if (text.includes(userInput)) {
-                // Create anchor links for each occurrence of the search term in the paragraph
-                const regex = new RegExp(userInput, 'gi'); // Case-insensitive search
-                const matches = text.match(regex);
-                if (matches) {
-                    matches.forEach(match => {
-                        // Modify the URL to include anchor links to the specific word
-                        const anchorURL = `${url}#${match}`;
-                        searchResults.push(anchorURL);
-                    });
-                }
-            }
-        } catch (error) {
-            console.error('Error occurred while fetching or parsing HTML:', error);
-        }
-    }
-    
-    let nextSearchIndex = 0; // Initialize nextSearchIndex
-
-    // Define a function to handle the "Next" button click
-    const handleNextSearch = async () => {
-        nextSearchIndex++; // Increment nextSearchIndex for the next search
-        await performSearch(); // Call performSearch again for the next search
+    botResponse = {
+        author: 'bot',
+        body: (
+            <div>
+                {/* Include the Chatbot component here */}
+                <Chatbot />
+            </div>
+        ),
+        timeout: 0
     };
-    
-    // Define the performSearch function
-    const performSearch = async () => {
-        
-        if (searchResults.length > 0) {
-            const searchResult = searchResults[nextSearchIndex % searchResults.length]; // Get the next search result in a loop
-            try {
-                const response = await axios.get(searchResult);
-                const html = response.data;
-                const $ = cheerio.load(html);
-    
-                // Extract the heading
-                const heading = $('h1').text(); // Assuming the heading is in an h1 tag
-    
-                let foundParagraph = ''; // Initialize an empty string to store the found paragraph
-                let anchorLinks = []; // Initialize an array to store anchor links
-    
-                $('p').each((index, element) => {
-                    const paragraphText = $(element).text().trim();
-                    if (paragraphText.toLowerCase().includes(userInput.toLowerCase())) {
-                        // Update the found paragraph
-                        foundParagraph = paragraphText;
-                        // Create anchor links for each occurrence of the search term in the paragraph
-                        const regex = new RegExp(userInput, 'gi'); // Case-insensitive search
-                        const matches = paragraphText.match(regex);
-                        if (matches) {
-                            matches.forEach(match => {
-                                // Create anchor link and push to the array
-                                const anchorLink = `<a href="${searchResult}#${match}" target="_blank">${match}</a>`;
-                                
-                            });
-                        }
-                        return false; // Exit the loop after finding the first matching paragraph
-                    }
-                });
-    
-                // Construct the bot response
-                botResponse = {
-                    author: 'bot',
-                    body: (
-                        <div>
-                            <h4>{heading}</h4>
-                            {foundParagraph && <p dangerouslySetInnerHTML={{ __html: foundParagraph }}></p>}
-                            {anchorLinks.map((link, index) => (
-                                <p key={index} dangerouslySetInnerHTML={{ __html: link }}></p>
-                            ))}
-                            {searchResults.slice(0,3).map((Result,id)=>(
-                                <div key={Result.id}>
-                                    <p dangerouslySetInnerHTML={{ __html:Result.title}}></p>
-                                    <button>
-                                        <a href={Result.link} target="_blank" rel="noopener noreferrer">Read more</a>
-                                    </button>
-                                    </div>
-                            ))}
-                            <button onClick={() => handleMessageDisplay(SomethingelseMessage,chatMessages.length)} >Something else</button>
-                            </div>
-
-                    ),
-                    timeout: 0
-                };
-            } catch (error) {
-                console.error('Error occurred while fetching or parsing HTML:', error);
-                botResponse = {
-                    author: 'bot',
-                    body: `Error occurred while fetching or parsing HTML for "${userInput}"`,
-                    timeout: 0
-                };
-            }
-        } else {
-            botResponse = {
-                author: 'bot',
-                body: `Sorry, "${userInput}" was not found on the website.`,
-                timeout: 0
-            };
-        }
-    };
-    
-    
-    // Initial call to perform the search
-    await performSearch();
-    
-    
 
 
 }
@@ -935,8 +774,6 @@ handleMessageDisplay(botResponse, chatMessages.length + 1);
             
             <Message key={index} data={message} handleClick={handleClick} />
         ))}
-
-        
     </ul>
 </div>
 
@@ -947,7 +784,7 @@ handleMessageDisplay(botResponse, chatMessages.length + 1);
      
 {showContactForm && <ContactForm toggleContactForm={toggleContactForm} />}
 
-{isLoading &&<div className="loading"> loading...</div>}
+
             <form className="input-div" onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -965,9 +802,7 @@ handleMessageDisplay(botResponse, chatMessages.length + 1);
                         <path d="M490.2 232.7L61.8 4.5C55-1.4 45.3-.4 39.3 5.3c-6 5.7-6.8 14.8-1.1 20.8L443.5 255 38.2 486.9c-5.7 6-5 15.1 1.1 20.8 3.4 3.2 7.8 4.7 12.2 4.7 4.4 0 8.8-1.6 12.2-4.7l428.4-228.2c6.1-5.8 6.8-15 .9-20.8z" fill="currentColor"/>
                     </svg>
                 </button>
-                
             </form>
-            
             <SpeedInsights />
             
             <Analytics />

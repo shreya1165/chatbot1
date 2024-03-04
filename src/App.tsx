@@ -10,7 +10,7 @@ import ContactForm from './ContactForm.tsx';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useLocation } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react"
-
+import './WaitDots.tsx'
 
 import ReactGA from 'react-ga';
 
@@ -31,6 +31,8 @@ interface MessageBody {
     url: string;
     text: string;
 }
+
+
 
 const Messages: Message[] = [
     {
@@ -64,7 +66,17 @@ interface MessageProps {
     handleClick: (option: MessageBody) => void;
     
 }
+
+
 const Message: React.FC<MessageProps> = ({ data, handleClick }) => {
+    // Check if data is defined before attempting to destructure
+    if (!data) {
+      console.error('Error: Message data is undefined.');
+      // Handle the error or return a default component/message
+      return <div>Error: Message data is undefined</div>;
+    }
+  
+    // Destructure properties from data
     const { author, body } = data;
 
     let finalBody: JSX.Element | JSX.Element[];
@@ -825,7 +837,6 @@ else{
     
     // Define the performSearch function
     const performSearch = async () => {
-        
         if (searchResults.length > 0) {
             const searchResult = searchResults[nextSearchIndex % searchResults.length]; // Get the next search result in a loop
             try {
@@ -851,7 +862,7 @@ else{
                             matches.forEach(match => {
                                 // Create anchor link and push to the array
                                 const anchorLink = `<a href="${searchResult}#${match}" target="_blank">${match}</a>`;
-                                
+                                anchorLinks.push(anchorLink);
                             });
                         }
                         return false; // Exit the loop after finding the first matching paragraph
@@ -868,17 +879,9 @@ else{
                             {anchorLinks.map((link, index) => (
                                 <p key={index} dangerouslySetInnerHTML={{ __html: link }}></p>
                             ))}
-                            {searchResults.slice(0,3).map((Result,id)=>(
-                                <div key={Result.id}>
-                                    <p dangerouslySetInnerHTML={{ __html:Result.title}}></p>
-                                    <button>
-                                        <a href={Result.link} target="_blank" rel="noopener noreferrer">Read more</a>
-                                    </button>
-                                    </div>
-                            ))}
-                            <button onClick={() => handleMessageDisplay(SomethingelseMessage,chatMessages.length)} >Something else</button>
-                            </div>
-
+                            <button><a href={searchResult} target="_blank">Read more</a></button> {/* Provide a link to the full content */}
+                            <button onClick={handleNextSearch}>Something Else</button> {/* Option for next search */}
+                        </div>
                     ),
                     timeout: 0
                 };

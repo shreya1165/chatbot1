@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import './ContactForm.tsx';
+import './ContactForm';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+
 // import { SocketConnect } from "./socket";
 // import ChatWindow from './ChatWindow.js';
-import ContactForm from './ContactForm.tsx';
+import ContactForm from './ContactForm';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { useLocation } from 'react-router-dom';
 import { Analytics } from "@vercel/analytics/react";
-import Chatbot from './Chatbot.tsx';
+import Chatbot from './Chatbot';
 
 // import './WaitDots.tsx'
 
 import ReactGA from 'react-ga';
 
-import getLocation from './getLocation.tsx';
+import getLocation from './getLocation';
 
 
 interface Coordinates {
@@ -48,7 +49,7 @@ const Messages: Message[] = [
                  
                     { url: "/blog/", text: "Services" },
                     { url: "/Contact Details", text: "Contact Details" },
-                    { url: "/somethingelse/", text: "Something else" }
+                    { url: "/somethingelse/", text: "More Options" }
                 ]
             }
         ],
@@ -129,6 +130,15 @@ const Message: React.FC<MessageProps> = ({ data, handleClick }) => {
 const App: React.FC = () => {
     const [chatMessages, setChatMessages] = useState<Message[]>([]);
     const chatAreaRef = useRef<HTMLDivElement>(null);
+    const [chatHistory, setChatHistory] = useState([]);
+    const [UserInput, setUserInput] = useState('');
+
+
+    const handleRefresh = (event)=>{
+        event.preventDefault();
+       window.location.reload();
+       
+    };
 
     // const location = useLocation();
 
@@ -455,10 +465,10 @@ const App: React.FC = () => {
 
 
 
-                        case "Something else":
+                        case "More Options":
                             const SomethingelseMessage: Message = {
                                 author: "user",
-                                body: "Somethingelse",
+                                body: "More Options",
                                 timeout: 0
                             };
                             handleMessageDisplay(SomethingelseMessage, chatMessages.length);
@@ -485,9 +495,53 @@ const App: React.FC = () => {
                             };
                             handleMessageDisplay(SomethingelseResponse, chatMessages.length + 1);
                             break;
+
+
+
+                            case "Industries we serve":
+                            const IndustriesweserveMessage: Message = {
+                                author: "user",
+                                body: "Industries we serve",
+                                timeout: 0
+                            };
+                            handleMessageDisplay(IndustriesweserveMessage, chatMessages.length);
+                
+                            const IndustriesweserveResponse:{url:string,text:string, Message} = {
+                                author: "bot",
+                                body: [
+                                    {
+                                        text: "Following are the industries we serve:",
+                                        options: [
+                                            { url: "/healthcare-app-development", text: "Healthcare" },
+                                            { url: "/energy-and-gas", text: "Energy and Gas" },
+                                            { url: "/education-elearning", text: "Education & E-learning" },
+                                            { url: "/transportation-logistics", text: "Transportation & Logistics" },
+                                            { url: "/ecommerce", text: "ECommerce" },
+                                            { url: "/fintech", text: "Fintech" },
+                                            { url: "/on-demand", text: "On-Demand" },
+                                            { url: "/marketing-advertisement", text: "Marketing & Advertisement" },
+                                            { url: "/sports", text: "Sports" },
+                                            
+                                        ]
+                                        
+                                    }
+                                    
+                                ],
+                                
+                                timeout: 0
+                            };
+                            const handleButtonClick = (url: string) => {
+                                window.location.href = `https://codestoresolutions.com${url}`;
+                                  };
+                            handleMessageDisplay(IndustriesweserveResponse, chatMessages.length + 1);
+                            break;
                     
             
             
+
+
+
+                            
             
             
                 default:
@@ -527,7 +581,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         console.error('Form element not found');
     }
 
-    const userInput = (formData.get('input') as string).toLowerCase();
+    const userInput = (formData.get('input') as string);
 
     // Create a bot response based on user input
     let botResponse: Message;
@@ -564,7 +618,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     // Display the user's message and the bot's response
     handleMessageDisplay(userMessage, chatMessages.length);
 
-    if (userInput.includes('service')) {
+    if (userInput.includes('service')||userInput.includes('Service')||userInput.includes('SERVICE')) {
         botResponse = {
             author: 'bot',
             body: [
@@ -579,7 +633,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             ],
             timeout: 0
         };
-    } else if (userInput.includes('help')) {
+    } else if (userInput.includes('help')||userInput.includes('Help')||userInput.includes('HELP')) {
         botResponse = {
             author: 'bot',
             body: [
@@ -594,19 +648,19 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             ],
             timeout: 0
         };
-    } else if (userInput.includes('hello') || userInput.includes('hi') || userInput.includes('hey there') || userInput.includes('hey')) {
+    } else if (userInput.includes('hello')||userInput.includes('Hello')||userInput.includes('HELLO') || userInput.includes('hi')||userInput.includes('Hi')||userInput.includes('HI') || userInput.includes('hey there')||userInput.includes('Hey there')||userInput.includes('HEY THERE') || userInput.includes('hey')||userInput.includes('Hey')||userInput.includes('HEY')) {
         botResponse = {
             author: 'bot',
             body: 'Hi ',
             timeout: 0
         };
-    } else if (userInput.includes('bye') || userInput.includes('bbye') || userInput.includes('see u') || userInput.includes('thanks bbye')) {
+    } else if (userInput.includes('bye')||userInput.includes('Bye')||userInput.includes('BYE') || userInput.includes('bbye') || userInput.includes('see u') || userInput.includes('thanks bbye')) {
         botResponse = {
             author: 'bot',
             body: 'Bye, See you soon',
             timeout: 0
         };
-    } else if (userInput.includes('contact')) {
+    } else if (userInput.includes('contact')||userInput.includes('Contact')||userInput.includes('CONTACT')) {
         botResponse = {
             author: 'bot',
             body: (
@@ -624,7 +678,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     
             timeout: 0
         };
-    } else if (userInput.includes('healthcare') || userInput.includes('health care') || userInput.includes('health')) {
+    } else if (userInput.includes('healthcare')||userInput.includes('Healthcare')||userInput.includes('HEALTHCARE') || userInput.includes('health care')||userInput.includes('Health care')|| userInput.includes('Health Care') || userInput.includes('health')||userInput.includes('Health')) {
         botResponse = {
             author: 'bot',
             body: (
@@ -658,23 +712,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             };
 
 
-        }else if (userInput.includes('app')||userInput.includes('it')) {
-            botResponse = {
-                author: 'bot',
-                body: (
-                    <div>
-                        <p>Are you searching for?
-
-</p>
-                        <ul>
-                            <li><button onClick={() => window.open("https://codestoresolutions.com/web-application-development/", "_blank")}>Web Application Development</button></li>
-                            <li><button onClick={() => window.open("https://codestoresolutions.com/mobile-application-development/", "_blank")}>Mobile App Development</button></li>
-                           
-                        </ul>
-                    </div>
-                ),
-                timeout: 0
-            };
+        
             
             
                 
@@ -682,29 +720,15 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             }else if (userInput.includes('vision')||userInput.includes('mission')||userInput.includes('about')) {
                 botResponse = {
                     author: 'bot',
-                    body: [
-                        {
-                            text: "Are you searching for?",
-                            options: [
-                                { 
-                                    url: "https://codestoresolutions.com/web-application-development/", 
-                                    text: "Our vision is to be a leading provider of offshore software development services by delivering high-quality work to our clients" 
-                                },
-                                { 
-                                    url: "https://codestoresolutions.com/web-application-development/", 
-                                    text: "Our mission is to help our clients fill the gap in their engineering capacity, increase productivity, reduce the cost of operations, and stay ahead of the competition." 
-                                },
-                                { 
-                                    url: "https://codestoresolutions.com/web-application-development/", 
-                                    text: "Our People: The people we have are committed to delivering high-quality software services to our clients." 
-                                },
-                                { 
-                                    url: "contact/", 
-                                    text: "Something else... Contact Team" 
-                                }
-                            ]
-                        }
-                    ],
+                    body: (
+                        <div>
+                    CodeStore is an offshore custom software development company based out of India. Our expertise lies in creating high-quality, innovative custom software solutions for businesses of all sizes.
+
+Our enthusiastic team of experienced developers has expertise in various programming languages and technologies to serve our client’s unique needs and requirements across the globe. We are committed to providing our clients with the best possible service, and we take pride in delivering software that exceeds our client’s expectations.
+                    <br />
+                    For more details, visit: <a href="https://codestoresolutions.com/about-us/" style={{ color: 'white' }}>https://codestoresolutions.com/healthcare-app-development/</a>
+                </div>
+                    ),
                     timeout: 0
                 };
                 
@@ -786,6 +810,7 @@ handleMessageDisplay(botResponse, chatMessages.length + 1);
 
 
             <form className="input-div" onSubmit={handleSubmit}>
+            <button className="refresh" onClick={(event) => handleRefresh(event)}><img src="./reload.png" alt="Refresh" style={{ width: '30px', height: '30px'}} /></button>
                 <input
                     type="text"
                     name="input"

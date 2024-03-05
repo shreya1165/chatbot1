@@ -222,6 +222,25 @@ body {
     fill:  #505050;
     margin: 11px 8px;
   }
+
+  .refresh {
+    /* background: transparent; */
+    width: 48px;
+    height: 48px;
+    right: 0%;
+    border: none;
+    cursor: pointer;
+  }
+  .refresh:hover {
+    background: #505050;
+  }
+  .refresh svg {
+    fill:  #505050;
+    margin: 11px 8px;
+  }
+
+
+
   .chat-message-div {
     display: flex;
   }

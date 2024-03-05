@@ -63,8 +63,10 @@ const Chatbot: React.FC = () => {
                       Visit the page for more details:{' '}
                       <a
                         href={data.link}
+                    
                         target="_blank"
                         rel="noopener noreferrer"
+                        style={{color: 'white'}}
                       >
                         {data.link}
                       </a>

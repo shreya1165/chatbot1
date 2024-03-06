@@ -815,7 +815,7 @@ handleMessageDisplay(botResponse, chatMessages.length + 1);
                     type="text"
                     name="input"
                     className="input-message"
-                    placeholder="Type your message here..."
+                    placeholder="Type your message here in chat..."
                     autoComplete="off"
                     required
                     // disabled={isInputDisabled} // Set the disabled attribute based on state
